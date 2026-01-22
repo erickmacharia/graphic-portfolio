@@ -465,7 +465,6 @@ body {
   border-radius: 15px;
   box-shadow: 0 10px 40px rgba(30, 58, 138, 0.2);
   position: relative;
-  order: 2;
 }
 
 .carousel-track {
@@ -477,13 +476,15 @@ body {
   min-width: 100%;
   position: relative;
   height: 450px;
+  background: linear-gradient(135deg, var(--very-light-blue), var(--light-blue));
 }
 
 .carousel-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+  background: linear-gradient(1deg, var(--very-light-blue),#0d08ded4);
 }
 
 .slide-overlay {
@@ -536,7 +537,7 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: var(--shadow-blue);
+  box-shadow: -4px 7px 4px rgba(30, 58, 138, 0.15);
   z-index: 10;
   flex-shrink: 0;
 }
@@ -545,15 +546,12 @@ body {
   background: var(--primary-blue);
   color: var(--white);
   transform: scale(1.1);
-  box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3);
+   box-shadow: -4px 7px 4px rgba(30, 58, 138, 0.15);
 }
 
-.prev-btn {
-  order: 1;
-}
-
-.next-btn {
-  order: 3;
+/* Container for navigation buttons on mobile ONLY */
+.carousel-nav-buttons-container {
+  display: none; /* Hidden by default on desktop/tablet */
 }
 
 /* ===== CAROUSEL INDICATORS ===== */
@@ -620,6 +618,7 @@ body {
   background: var(--very-light-blue);
   border-radius: 12px;
   transition: all 0.3s ease;
+  box-shadow: -6px 8px 4px rgba(0, 0, 0, 0.2);
 }
 
 .feature:hover {
@@ -773,6 +772,7 @@ body {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  box-shadow: -6px 8px 4px rgba(0, 0, 0, 0.2);
 }
 
 .social-icon.animated {
@@ -812,9 +812,21 @@ body {
   opacity: 0.3;
 }
 
+/* Add scroll animation classes for footer */
+.footer-slide-up {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.footer-slide-up.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 
-/* Tablet */
+/* Tablet - Same as desktop but smaller buttons */
 @media (max-width: 1024px) {
   .portfolio-container {
     padding: 15px;
@@ -833,9 +845,14 @@ body {
   .section-features {
     gap: 20px;
   }
+  
+  /* Tablet: Ensure buttons are visible on sides */
+  .carousel-wrapper {
+    gap: 15px;
+  }
 }
 
-/* Mobile */
+/* Mobile ONLY - Move buttons below image */
 @media (max-width: 768px) {
   body {
     padding: 15px;
@@ -850,16 +867,47 @@ body {
     margin-bottom: 50px;
   }
   
+  /* Mobile carousel layout - ONLY for mobile */
   .carousel-wrapper {
-    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    position: relative;
   }
   
-  .carousel-nav-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  .carousel-container {
+    width: 100%;
+  }
+  
+  /* Show mobile button container only on mobile */
+  .carousel-nav-buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+    margin-top: 15px;
+  }
+  
+  /* Hide the original side buttons on mobile */
+  .carousel-wrapper > .carousel-nav-btn {
+    display: none;
+  }
+  
+  /* Style mobile buttons */
+  .carousel-nav-buttons-container .carousel-nav-btn {
+    position: static;
+    transform: none;
+    width: 60px;
+    height: 60px;
+    font-size: 1.3rem;
+    background: var(--primary-blue);
+    color: var(--white);
+   box-shadow: -6px 8px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .carousel-nav-buttons-container .carousel-nav-btn:hover {
+    background: var(--dark-blue);
+    transform: scale(1.05);
   }
   
   .carousel-slide {
@@ -939,14 +987,18 @@ body {
     font-size: 1.2rem;
   }
   
-  .carousel-nav-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 0.9rem;
+  .carousel-nav-buttons-container .carousel-nav-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.1rem;
   }
   
   .carousel-wrapper {
-    gap: 5px;
+    gap: 10px;
+  }
+  
+  .carousel-nav-buttons-container {
+    gap: 30px;
   }
   
   .carousel-indicators {
@@ -989,17 +1041,25 @@ body {
 /* Extra Small Mobile */
 @media (max-width: 360px) {
   .carousel-wrapper {
-    gap: 3px;
+    gap: 8px;
   }
   
-  .carousel-nav-btn {
-    width: 30px;
-    height: 30px;
-    font-size: 0.8rem;
+  .carousel-nav-buttons-container .carousel-nav-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1rem;
+  }
+  
+  .carousel-nav-buttons-container {
+    gap: 25px;
   }
   
   .carousel-container {
     margin: 0 2px;
+  }
+  
+  .carousel-slide {
+    height: 240px;
   }
 }
 
@@ -1024,20 +1084,17 @@ body {
 /* Add Font Awesome */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
-/* changes made to transparency*/
-/* Add these styles to your existing CSS */
-
 /* ===== CAROUSEL SLIDE CONTENT - TRANSPARENT TEXT ===== */
 .slide-title {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 5px;
-  opacity: 0.5; /* Add transparency to title */
+  opacity: 0.5;
 }
 
 .slide-desc {
   font-size: 0.95rem;
-  opacity: 0.5; /* Make description more transparent */
+  opacity: 0.5;
 }
 
 .slide-number {
@@ -1046,19 +1103,19 @@ body {
   border-radius: 20px;
   font-size: 0.9rem;
   backdrop-filter: blur(10px);
-  opacity: 0.5; /* Slightly transparent counter */
+  opacity: 0.5;
 }
 
 /* Responsive adjustments for transparency */
 @media (max-width: 768px) {
   .slide-title {
     font-size: 1.2rem;
-    opacity: 0.5; /* Less transparent on mobile for better readability */
+    opacity: 0.5;
   }
   
   .slide-desc {
     font-size: 0.8rem;
-    opacity: 0.5; /* Less transparent on mobile */
+    opacity: 0.5;
   }
 }
 
@@ -1074,76 +1131,260 @@ body {
   }
 }
 
-/* ===== PORTFOLIO FOOTER ===== */
-.portfolio-footer {
-  text-align: center;
-  margin-top: 10px;
-  padding-top: 40px;
-  border-top: 2px solid #0f09fc;
+/* ===== HERO SECTION ===== */
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 80px;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  border-radius: 25px;
+  box-shadow: 0 20px 60px rgba(30, 58, 138, 0.3);
   position: relative;
-  background: linear-gradient(357deg, #0f09fc 0%, #ae3bf6 60%);
-  border-radius: 20px;
-  padding: 40px 30px 30px;
-  box-shadow: -9px 8px 0px 0px rgba(30, 58, 138, 0.15);
-  /* REMOVE opacity: 0 from here and add animation classes instead */
-}
-
-/* Add scroll animation classes for footer */
-.footer-slide-up {
+  overflow: hidden;
+  min-height: 500px;
   opacity: 0;
-  transform: translateY(60px);
+  transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.footer-slide-up.animated {
+.hero-section.animated {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Keep the original footer animation as a backup */
-.footer-animate {
-  animation: fadeInFooter 1s ease-out forwards;
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  z-index: 0;
 }
 
-/* Rest of your footer styles remain the same... */
-.footer-content {
-  max-width: 800px;
-  margin: 0 auto;
+.hero-content {
+  flex: 1;
+  z-index: 1;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
 }
 
-.footer-title {
-  color: #03fb1b;
-  font-size: 2rem;
-  margin-bottom: 25px;
-  font-weight: 700;
-  text-shadow: -4px 2px 5px black;
+.hero-content.animated {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-.contact-info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  margin-bottom: 40px;
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  color: white;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  font-weight: 800;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 15px 20px;
-  background: var(--very-light-blue);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  min-width: 220px;
+.hero-title span {
+  display: inline-block;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  box-shadow: -7px 6px 0px rgba(7, 24, 73, 0.623);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.contact-item.animated {
+.hero-title span.animated {
   opacity: 1;
   transform: translateY(0);
 }
 
+.hero-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 30px;
+  line-height: 1.6;
+  max-width: 600px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
+}
+
+.hero-subtitle.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-cta {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s;
+}
+
+.hero-cta.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #03fb1b 0%, #00d4ff 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 8px 25px rgba(3, 251, 27, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.hero-button:hover::before {
+  left: 100%;
+}
+
+.hero-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(3, 251, 27, 0.4);
+}
+
+.hero-button:active {
+  transform: translateY(-1px);
+}
+
+.hero-button i {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.hero-button:hover i {
+  transform: translateX(5px);
+}
+
+.hero-image-container {
+  flex: 0 0 300px;
+  z-index: 1;
+  opacity: 0;
+  transform: translateX(30px) scale(0.95);
+  transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+}
+
+.hero-image-container.animated {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.hero-image {
+  width: 100%;
+  height: 350px;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 8px solid white;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s ease;
+}
+
+.hero-image:hover {
+  transform: scale(1.03);
+}
+
+.hero-floating-element {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.hero-floating-element:nth-child(1) {
+  width: 60px;
+  height: 60px;
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.hero-floating-element:nth-child(2) {
+  width: 40px;
+  height: 40px;
+  bottom: 30%;
+  right: 15%;
+  animation-delay: 1s;
+}
+
+.hero-floating-element:nth-child(3) {
+  width: 30px;
+  height: 30px;
+  top: 60%;
+  left: 15%;
+  animation-delay: 2s;
+}
+
+/* Responsive Hero */
+@media (max-width: 1024px) {
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 30px;
+  }
+  
+  .hero-content {
+    order: 2;
+  }
+  
+  .hero-image-container {
+    order: 1;
+    flex: 0 0 250px;
+    max-width: 300px;
+  }
+  
+  .hero-title span {
+    display: inline;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 30px 20px;
+    min-height: 400px;
+  }
+  
+  .hero-image {
+    height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 25px 15px;
+  }
+  
+  .hero-button {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+  
+  .hero-image {
+    height: 200px;
+  }
+}

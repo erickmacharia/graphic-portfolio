@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
+
 const GraphicPortfolio = () => {
   // Matatu Branding Images
   const matatuImages = [
@@ -30,7 +31,6 @@ const GraphicPortfolio = () => {
     "https://i.pinimg.com/1200x/1c/3b/ac/1c3bac87cdb4bbc3c58864ef7edb4588.jpg",
     "https://i.pinimg.com/736x/6a/7b/00/6a7b000c32747b03e74759e943397393.jpg",
     "https://i.pinimg.com/736x/dc/74/c6/dc74c608386039c3e19e27f291b8fbba.jpg",
-    
   ];
 
   // Digital Signage Images
@@ -239,8 +239,9 @@ const GraphicPortfolio = () => {
       {/* Header */}
       <header className="portfolio-header">
         <h1 className="animate-fade-in glow-text">
-          Graphic Design Portfolio
+          Maliet Maliet Customz 
         </h1>
+        
         <p className="portfolio-subtitle animate-slide-up glow-subtle">
           Showcasing professional graphic design work with creativity and precision
         </p>
@@ -263,6 +264,7 @@ const GraphicPortfolio = () => {
         </p>
         
         <div className="carousel-wrapper">
+          {/* Desktop/Tablet: Left button (previous) */}
           <button 
             className="carousel-nav-btn prev-btn" 
             onClick={handleMatatuPrev} 
@@ -294,17 +296,13 @@ const GraphicPortfolio = () => {
                       <h3 className="slide-title">Design {index + 1}</h3>
                       <p className="slide-desc">Professional Branding</p>
                     </div>
-
-                    { /* removed it cause i think its taking much space  }
-                    <div className="slide-counter">
-                      <span className="slide-number">{index + 1} / {finalMatatuImages.length}</span>
-                    </div> */}
                   </div>
                 </div>
               ))}
             </div>
           </div>
           
+          {/* Desktop/Tablet: Right button (next) */}
           <button 
             className="carousel-nav-btn next-btn" 
             onClick={handleMatatuNext} 
@@ -314,6 +312,29 @@ const GraphicPortfolio = () => {
           >
             <i className="fas fa-chevron-right"></i>
           </button>
+          
+          {/* Mobile buttons container (hidden on desktop/tablet) */}
+          <div className="carousel-nav-buttons-container">
+            <button 
+              className="carousel-nav-btn prev-btn" 
+              onClick={handleMatatuPrev} 
+              aria-label="Previous image"
+              onMouseEnter={pauseMatatuAutoSlide}
+              onMouseLeave={() => setTimeout(startMatatuAutoSlide, 1000)}
+            >
+              <i className="fas fa-chevron-left"></i>
+            </button>
+            
+            <button 
+              className="carousel-nav-btn next-btn" 
+              onClick={handleMatatuNext} 
+              aria-label="Next image"
+              onMouseEnter={pauseMatatuAutoSlide}
+              onMouseLeave={() => setTimeout(startMatatuAutoSlide, 1000)}
+            >
+              <i className="fas fa-chevron-right"></i>
+            </button>
+          </div>
         </div>
         
         <div className="carousel-indicators">
@@ -372,6 +393,7 @@ const GraphicPortfolio = () => {
         </p>
         
         <div className={`carousel-wrapper ${isDigitalArtVisible ? 'animated slide-up-bottom delay-2' : 'animate-on-scroll slide-up-bottom'}`}>
+          {/* Desktop/Tablet: Left button (previous) */}
           <button 
             className="carousel-nav-btn prev-btn" 
             onClick={handleSignagePrev} 
@@ -403,16 +425,13 @@ const GraphicPortfolio = () => {
                       <h3 className="slide-title">Design {index + 1}</h3>
                       <p className="slide-desc">Professional Signage & Digital Art</p>
                     </div>
-                    { /* removed it cause i think its taking much space 
-                    <div className="slide-counter">
-                      <span className="slide-number">{index + 1} / {finalSignageImages.length}</span>
-                    </div> */}
                   </div>
                 </div>
               ))}
             </div>
           </div>
           
+          {/* Desktop/Tablet: Right button (next) */}
           <button 
             className="carousel-nav-btn next-btn" 
             onClick={handleSignageNext} 
@@ -422,6 +441,29 @@ const GraphicPortfolio = () => {
           >
             <i className="fas fa-chevron-right"></i>
           </button>
+          
+          {/* Mobile buttons container (hidden on desktop/tablet) */}
+          <div className="carousel-nav-buttons-container">
+            <button 
+              className="carousel-nav-btn prev-btn" 
+              onClick={handleSignagePrev} 
+              aria-label="Previous image"
+              onMouseEnter={pauseSignageAutoSlide}
+              onMouseLeave={() => setTimeout(startSignageAutoSlide, 1000)}
+            >
+              <i className="fas fa-chevron-left"></i>
+            </button>
+            
+            <button 
+              className="carousel-nav-btn next-btn" 
+              onClick={handleSignageNext} 
+              aria-label="Next image"
+              onMouseEnter={pauseSignageAutoSlide}
+              onMouseLeave={() => setTimeout(startSignageAutoSlide, 1000)}
+            >
+              <i className="fas fa-chevron-right"></i>
+            </button>
+          </div>
         </div>
         
         <div className={`carousel-indicators ${isDigitalArtVisible ? 'animated slide-up-bottom delay-3' : 'animate-on-scroll slide-up-bottom'}`}>
@@ -463,7 +505,7 @@ const GraphicPortfolio = () => {
       <div className="section-spacer"><hr/></div>
 
       {/* Footer with Slide Up Animation */}
-            <footer 
+      <footer 
         className={`portfolio-footer ${isFooterVisible ? 'animated footer-slide-up' : 'footer-slide-up'}`}
         ref={footerRef}
       >
@@ -508,7 +550,7 @@ const GraphicPortfolio = () => {
             </div>
           </div>
           
-          <div className="footer-copyright">
+          <div className="footer-copyright" id="contact-us">
             <div className="copyright-text">
               <p>© {new Date().getFullYear()} Graphic Design Portfolio. All rights reserved.</p>
               <p className="copyright-sub">Professional Graphic Design Services</p>
