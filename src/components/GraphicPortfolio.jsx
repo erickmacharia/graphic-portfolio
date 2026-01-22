@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import Hero from './Hero';
 
 
 const GraphicPortfolio = () => {
@@ -241,10 +242,11 @@ const GraphicPortfolio = () => {
         <h1 className="animate-fade-in glow-text">
           Maliet Maliet Customz 
         </h1>
-        
+        <Hero />
         <p className="portfolio-subtitle animate-slide-up glow-subtle">
           Showcasing professional graphic design work with creativity and precision
         </p>
+        
         <div className="header-decoration">
           <div className="blue-line"></div>
           <div className="blue-dot"></div>
