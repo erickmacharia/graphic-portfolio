@@ -358,13 +358,14 @@ body {
   transform: translateX(-50%);
   width: 100px;
   height: 4px;
-  background: black;
+  background: #000000;
   border-radius: 2px;
+  
 }
 
 .portfolio-subtitle {
   font-weight: 800;
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-size: clamp(2rem, 2.5vw, 1.2rem);
   color: white;
   text-shadow: black 0px 2px 4px;
   max-width: 700px;
@@ -1289,6 +1290,7 @@ body {
 }
 
 .hero-word:nth-child(2) {
+  margin-left: 10px;
   animation-delay: 0.6s;
   color: #03fb1b;
   background: linear-gradient(135deg, rgba(3, 251, 27, 0.2), rgba(0, 212, 255, 0.2));
@@ -1303,12 +1305,14 @@ body {
 }
 
 .hero-word:nth-child(4) {
+  margin-left: 10px;
   animation-delay: 1s;
   color: #ffd700;
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 152, 0, 0.2));
   box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
 }
 
+/* FIX FOR "Designer" word - Wider box for star */
 .hero-word:nth-child(5) {
   animation-delay: 1.2s;
   color: #ffffff;
@@ -1317,28 +1321,41 @@ body {
     0 8px 25px rgba(138, 43, 226, 0.4),
     0 0 15px rgba(138, 43, 226, 0.6);
   position: relative;
+  /* WIDER PADDING FOR ALL SCREENS */
+  padding: 8px 70px 8px 15px; /* UPDATED: 60px → 70px */
+  min-width: 210px; /* UPDATED: 200px → 210px */
 }
 
+/* ORIGINAL ROTATING STAR ANIMATION RESTORED */
 .hero-word:nth-child(5)::after {
   content: '✨';
   position: absolute;
-  right: -30px;
+  right: 4px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 0.8em;
+  font-size: 0.9em;
   animation: sparkle 2s infinite;
+  margin-right: 0;
 }
 
+/* ORIGINAL ROTATING ANIMATION */
 @keyframes sparkle {
   0%, 100% {
     opacity: 0.5;
-    transform: translateY(-50%) scale(1);
+    transform: translateY(-50%) scale(1) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-50%) scale(1.2) rotate(90deg);
   }
   50% {
     opacity: 1;
-    transform: translateY(-50%) scale(1.2);
+    transform: translateY(-50%) scale(1.3) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-50%) scale(1.2) rotate(270deg);
   }
 }
+/* Project made with with love from Macharia */
 
 /* ===== SUBTITLE ANIMATION ===== */
 .hero-subtitle {
@@ -1353,6 +1370,7 @@ body {
   max-width: 550px;
   padding-left: 10px;
   position: relative;
+  text-shadow: -3px 2px 7px black;
 }
 
 .hero-subtitle::before {
@@ -1681,14 +1699,20 @@ body {
     gap: 10px 18px;
   }
   
-  .hero-subtitle,
-  .hero-cta {
+  /* Tablet subtitle centering */
+  .hero-subtitle {
+    text-align: center !important;
     padding-left: 0;
-    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .hero-subtitle::before {
     display: none;
+  }
+  
+  .hero-cta {
+    padding-left: 0;
   }
 }
 
@@ -1711,6 +1735,24 @@ body {
   
   .hero-title {
     font-size: clamp(2.5rem, 6vw, 3.5rem);
+    justify-content: center;
+    gap: 8px 12px;
+  }
+  
+  /* Mobile word spacing */
+  .hero-word {
+    margin-bottom: 12px !important;
+  }
+  
+  /* WIDER "Designer" box for tablet */
+  .hero-word:nth-child(5) {
+    padding: 8px 50px 8px 15px; /* UPDATED: 28px → 50px */
+    min-width: 180px; /* ADDED */
+  }
+  
+  .hero-word:nth-child(5)::after {
+    right: 4px;
+    font-size: 0.8em;
   }
 }
 
@@ -1725,11 +1767,12 @@ body {
     gap: 8px 12px;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
   }
   
   .hero-word {
     margin-right: 0 !important;
-    margin-bottom: 8px !important;
+    margin-bottom: 10px !important;
   }
   
   .hero-image {
@@ -1749,39 +1792,22 @@ body {
   .hero-subtitle {
     font-size: 1.1rem;
     line-height: 1.6;
+    text-align: center;
+  }
+  
+  /* WIDER "Designer" box for mobile */
+  .hero-word:nth-child(5) {
+    padding: 8px 40px 8px 12px; /* UPDATED: 25px → 40px */
+    min-width: 160px; /* UPDATED: 140px → 160px */
+  }
+  
+  .hero-word:nth-child(5)::after {
+    right: 7px;
+    font-size: 0.7em;
   }
 }
 
-/* ===== TITLE WITH STAGGERED WORD ANIMATIONS ===== */
-.hero-title {
-  font-size: clamp(3rem, 7vw, 4.5rem);
-  color: white;
-  margin-bottom: 30px;
-  line-height: 1.1;
-  font-weight: 800;
-  text-shadow: 
-    0 6px 15px rgba(0, 0, 0, 0.25),
-    0 0 20px rgba(59, 130, 246, 0.5);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px 25px;
-  align-items: center;
-}
-
-.hero-word {
-  display: inline-block;
-  opacity: 0;
-  transform: translateX(-50px) rotate(-5deg);
-  animation: wordStagger 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-  padding: 8px 15px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Continuous reflection animation */
+/* ===== CONTINUOUS REFLECTION ANIMATION ===== */
 .hero-word::before {
   content: '';
   position: absolute;
@@ -1819,116 +1845,5 @@ body {
     rgba(255, 255, 255, 0.3),
     transparent
   );
-}
-
-@keyframes wordStagger {
-  0% {
-    opacity: 0;
-    transform: translateX(-50px) rotate(-5deg) scale(0.8);
-  }
-  70% {
-    transform: translateX(10px) rotate(2deg) scale(1.05);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0) rotate(0) scale(1);
-  }
-}
-
-/* Individual word styles with CONTINUOUS effects */
-.hero-word:nth-child(1) {
-  animation-delay: 0.4s;
-  color: #ffffff;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(30, 58, 138, 0.4));
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 4px 15px rgba(59, 130, 246, 0.3);
-}
-
-.hero-word:nth-child(2) {
-  animation-delay: 0.6s;
-  color: #03fb1b;
-  background: linear-gradient(135deg, rgba(3, 251, 27, 0.2), rgba(0, 212, 255, 0.2));
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 4px 20px rgba(3, 251, 27, 0.3);
-}
-
-.hero-word:nth-child(3) {
-  animation-delay: 0.8s;
-  color: #ff6b6b;
-  background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 193, 7, 0.2));
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 4px 20px rgba(255, 107, 107, 0.3);
-}
-
-.hero-word:nth-child(4) {
-  animation-delay: 1s;
-  color: #ffd700;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 152, 0, 0.2));
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 4px 20px rgba(255, 215, 0, 0.3);
-}
-
-/* "Designer" word with sparkle icon on the side */
-.hero-word:nth-child(5) {
-  animation-delay: 1.2s;
-  color: #ffffff;
-  background: linear-gradient(135deg, rgba(138, 43, 226, 0.4), rgba(30, 58, 138, 0.4));
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 4px 25px rgba(138, 43, 226, 0.4),
-    0 0 15px rgba(138, 43, 226, 0.6);
-  padding-right: 35px; /* Space for sparkle */
-  position: relative;
-}
-
-/* Sparkle icon - MOVED TO THE RIGHT SIDE */
-.hero-word:nth-child(5)::after {
-  content: '✨';
-  position: absolute;
-  right: 8px; /* Adjusted position */
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1em;
-  animation: sparkle 2s infinite;
-  z-index: 2;
-}
-
-@keyframes sparkle {
-  0%, 100% {
-    opacity: 0.5;
-    transform: translateY(-50%) scale(1) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-50%) scale(1.2) rotate(90deg);
-  }
-  50% {
-    opacity: 1;
-    transform: translateY(-50%) scale(1.3) rotate(180deg);
-  }
-  75% {
-    transform: translateY(-50%) scale(1.2) rotate(270deg);
-  }
-}
-
-/* Fix the sparkle position - Add this to your Hero.css */
-.hero-word:nth-child(5) {
-  position: relative;
-  padding-right: 35px; /* Add more padding on right for the sparkle */
-}
-
-.hero-word:nth-child(5)::after {
-  content: '✨';
-  position: absolute;
-  right: 10px; /* Move further to the right */
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.8em;
-  animation: sparkle 2s infinite;
-  z-index: 1; /* Ensure it's above */
-  margin-right: -27px;
 }
 

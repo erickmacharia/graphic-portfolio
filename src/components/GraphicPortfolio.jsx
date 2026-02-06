@@ -121,7 +121,7 @@ const GraphicPortfolio = () => {
       clearInterval(matatuIntervalRef.current);
     }
     
-    matatuIntervalRef.current = setInterval(nextMatatuSlide, 10000);
+    matatuIntervalRef.current = setInterval(nextMatatuSlide, 5000);
   }, [nextMatatuSlide]);
 
   const startSignageAutoSlide = useCallback(() => {
@@ -129,7 +129,7 @@ const GraphicPortfolio = () => {
       clearInterval(signageIntervalRef.current);
     }
     
-    signageIntervalRef.current = setInterval(nextSignageSlide, 10000);
+    signageIntervalRef.current = setInterval(nextSignageSlide, 5000);
   }, [nextSignageSlide]);
 
   // Function to pause auto-slide
@@ -242,6 +242,7 @@ const GraphicPortfolio = () => {
         <h1 className="animate-fade-in glow-text">
           Maliet Maliet Customz 
         </h1>
+        
         <Hero />
         <p className="portfolio-subtitle animate-slide-up glow-subtle">
           Showcasing professional graphic design work with creativity and precision
